@@ -12,7 +12,6 @@
     "node": "^8.9.4"
   },
   "dependencies": {
-    "express": "^4.16.3",
-    "prerender": "^5.4.2"
+    "express": "^4.16.3"
   }
 }
