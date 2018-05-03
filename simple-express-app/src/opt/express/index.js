@@ -1,16 +1,22 @@
 const express = require('express')
+const prerender = require('prerender')
 
-const app = express()
-app.get('/', (req, res) => {
-  res.status(200).send({ message: 'hello there' })
+const app = prerender({
+  logRequests: true
 })
+app.start()
 
-app.get('/healthcheck', (req, res) => {
-    res.status(200).send({ message: 'hello there' })
-});
+// const app = express()
+// app.get('/', (req, res) => {
+//   res.status(200).send({ message: 'hello there' })
+// })
 
-const PORT = process.env.PORT || '3000'
+// app.get('/healthcheck', (req, res) => {
+//     res.status(200).send({ message: 'hello there' })
+// });
 
-app.listen(PORT, () => {
-  console.log('prerender server listening on ' + PORT)
-})
+// const PORT = process.env.PORT || '3000'
+
+// app.listen(PORT, () => {
+//   console.log('prerender server listening on ' + PORT)
+// })
