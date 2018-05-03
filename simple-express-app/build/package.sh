@@ -55,6 +55,7 @@ echo "SRC_DIR=${SRC_DIR} BUILD_DIR=${BUILD_DIR}" >> /tmp/post-install-${PACKAGE_
 
 # obtain dependencies and get lts version of node
 cd /opt/express/
+npm config set strict-ssl false
 npm install n -g
 n ${NODE_VER}
 n use ${NODE_VER}
@@ -67,7 +68,7 @@ a2dissite 000-default.conf
 service apache2 restart
 
 # wrap node app in forever and log output to bittybuffer->kafka
-NODE_ENV=$SGK_ENVIRONMENT forever start -f /opt/express/app/www | /usr/local/bin/bittybuffer -t ${PACKAGE_NAME} -c ${PACKAGE_NAME}
+NODE_ENV=$SGK_ENVIRONMENT forever start -f /opt/express/index.js | /usr/local/bin/bittybuffer -t ${PACKAGE_NAME} -c ${PACKAGE_NAME}
 
 EOPOST
 
