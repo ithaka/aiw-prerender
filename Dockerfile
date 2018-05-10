@@ -3,14 +3,30 @@
 
 FROM ubuntu:latest
 
-RUN apt-get update
-RUN apt-get install wget -y
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
-RUN apt-get install google-chrome-stable -y
+### BELOW THIS IS GOOD
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x | -E bash -
-RUN apt-get install -y nodejs
+RUN apt-get update
+RUN apt-get install -my wget gnupg
+RUN apt-get install curl -y
+RUN apt-get install sudo -y
+
+# install that node
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+RUN sudo apt-get install -y nodejs
+
+### BELOW THIS IS TRIED
+
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN sudo dpkg -i google-chrome-stable_current_amd64.deb || echo '\ninstall failed - but its fine we just wanted a dependency list\n'
+RUN sudo apt-get -f install -y
+RUN sudo dpkg -i google-chrome-stable_current_amd64.deb
+
+# RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+# RUN echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+# RUN apt-get install google-chrome-stable -y
+
+# RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+# RUN sudo apt-get install -y nodejs
 
 # Set up node and npm install libraries.
 # ENV NODE_VERSION=v8.10.0
@@ -25,12 +41,10 @@ WORKDIR /app
 # Copy in dependency list
 COPY package*.json ./
 
-# RUN npm install
+RUN npm install
 
-WORKDIR /app/src
-
-COPY ./src .
+COPY ./src ./src
 
 EXPOSE 3000
 
-# CMD ["npm", "start"]
+CMD ["npm", "start"]
