@@ -2,14 +2,16 @@
 FROM node:carbon
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy in dependency list
 COPY package*.json ./
 
 RUN npm install
 
-COPY . .
+WORKDIR /app/src
+
+COPY ./src .
 
 EXPOSE 3000
 

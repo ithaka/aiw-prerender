@@ -1,3 +1,8 @@
 node_modules
 npm-debug.log
 yarn.*
+boot_healthcheck.sh
+healthcheck_drone.py
+install-docker.sh
+package.sh
+setup.sh
