@@ -14,12 +14,13 @@ RUN apt-get install sudo -y
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 RUN sudo apt-get install -y nodejs
 
-### BELOW THIS IS TRIED
-
+# install chrome - don't worry about the apparent failure
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN sudo dpkg -i google-chrome-stable_current_amd64.deb || echo '\ninstall failed - but its fine we just wanted a dependency list\n'
 RUN sudo apt-get -f install -y
 RUN sudo dpkg -i google-chrome-stable_current_amd64.deb
+
+### BELOW THIS IS TRIED
 
 # RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 # RUN echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
