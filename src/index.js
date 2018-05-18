@@ -1,4 +1,3 @@
-const express = require('express')
 const prerender = require('prerender')
 
 const app = prerender({
